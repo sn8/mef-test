@@ -5,6 +5,7 @@
         v-for="(item, index) in list"
         :key="index"
         class="list-item"
+        @click.capture="setFocusOnInput(index)"
       >
         <div class="image">
           <img src="./assets/hugh.jpg">
@@ -12,7 +13,12 @@
         <div class="info">
           <h2>Hugh is</h2>
           <div>
-            <numeric-input v-model="item.value" /> hours old
+            <numeric-input
+              :class="`input-${index}`"
+              placeholder="7"
+              v-model="item.value"
+            />
+            <span class="description">hours old</span>
           </div>
         </div>
       </div>
@@ -30,11 +36,16 @@ export default {
   },
   data: () => ({
     list: [
-      { value: 7 },
+      { value: '' },
       { value: 10000 },
       { value: 1000000 },
       { value: 10000000 },
     ],
   }),
+  methods: {
+    setFocusOnInput(index) {
+      document.querySelector(`.input-${index}`).focus();
+    },
+  },
 };
 </script>
